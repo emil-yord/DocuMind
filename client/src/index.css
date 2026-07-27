@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(35, 42, 46, 0.02),
+    rgba(35, 42, 46, 0.02) 1px,
+    transparent 1px,
+    transparent 28px
+  );
+}
+
+/* Signature element: inline citation markers look like footnote tabs
+   clipped to the margin of a manuscript page. */
+.citation-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 3px 3px 3px 0;
+  background: var(--tw-gold-soft, rgba(184, 135, 58, 0.14));
+  color: #8A6529;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  transform: translateY(-3px);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.citation-tab:hover {
+  background: rgba(184, 135, 58, 0.28);
+}
+
+/* Margin rail source cards - like index cards tucked in a book's margin */
+.margin-card {
+  border-left: 2px solid #B8873A;
+  position: relative;
+}
+
+.margin-card::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 0;
+  width: 2px;
+  height: 18px;
+  background: #2F6F62;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #D8D8CC;
+  border-radius: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fade-in 0.18s ease-out;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor-blink::after {
+  content: '▍';
+  animation: blink 1s step-start infinite;
+  color: #2F6F62;
+}

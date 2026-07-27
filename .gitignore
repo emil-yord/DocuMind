@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.env
+server/documind.db
+server/documind.db-*
+server/uploads/*
+.DS_Store
