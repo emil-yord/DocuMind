@@ -1,5 +1,7 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
+const fs = require('fs');
 const cors = require('cors');
 
 const authRoutes = require('./routes/auth');
@@ -17,6 +19,18 @@ app.use('/api/libraries', libraryRoutes);
 app.use('/api', chatRoutes); // exposes /api/libraries/:id/conversations and /api/conversations/:id/messages
 
 app.get('/api/health', (req, res) => res.json({ ok: true }));
+
+// In production (e.g. deployed on Render), this server also serves the
+// built React app, so the whole thing is one deployable service. Locally,
+// client/dist won't exist (you run `npm run dev` for the client instead),
+// so this block is simply skipped.
+const clientDist = path.join(__dirname, '..', 'client', 'dist');
+if (fs.existsSync(clientDist)) {
+  app.use(express.static(clientDist));
+  app.get(/^(?!\/api).*/, (req, res) => {
+    res.sendFile(path.join(clientDist, 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 4001;
 app.listen(PORT, () => {
